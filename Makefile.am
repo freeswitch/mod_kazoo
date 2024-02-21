@@ -1,4 +1,5 @@
-include $(top_srcdir)/build/modmake.rulesam
+-include $(top_srcdir)/build/modmake.rulesam
+AUTOMAKE_OPTIONS = foreign subdir-objects
 MODNAME=mod_kazoo
 
 if HAVE_ERLANG
@@ -15,9 +16,9 @@ mod_kazoo_la_SOURCES  += kazoo_endpoints.c
 mod_kazoo_la_SOURCES  += kazoo_cdr.c
 mod_kazoo_la_SOURCES  += kz_node.c
 
-mod_kazoo_la_CFLAGS   = $(AM_CFLAGS) @ERLANG_CFLAGS@ -D_REENTRANT -DERLANG_VERSION=@ERLANG_VERSION@ -DERLANG_MAJOR=@ERLANG_MAJOR@ -DERLANG_MINOR=@ERLANG_MINOR@
-mod_kazoo_la_LIBADD   = $(KAZOO_DEFS) $(switch_builddir)/libfreeswitch.la
-mod_kazoo_la_LDFLAGS  = -avoid-version -module -no-undefined -shared @ERLANG_LDFLAGS@
+mod_kazoo_la_CFLAGS   = $(AM_CFLAGS) $(FREESWITCH_CFLAGS) @ERLANG_CFLAGS@ -D_REENTRANT -DERLANG_VERSION=@ERLANG_VERSION@ -DERLANG_MAJOR=@ERLANG_MAJOR@ -DERLANG_MINOR=@ERLANG_MINOR@
+mod_kazoo_la_LIBADD   = $(KAZOO_DEFS)
+mod_kazoo_la_LDFLAGS  = -avoid-version -module -no-undefined -shared $(FREESWITCH_LIBS) @ERLANG_LDFLAGS@
 
 BUILT_SOURCES = $(KAZOO_DEFS)
 
